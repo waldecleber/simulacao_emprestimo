@@ -1,0 +1,53 @@
+<h3>Simulação de Empréstimo</h3>
+
+<div class="card">
+    <div class="card-header">
+      Dados do Cliente
+    </div>
+    <div class="card-body">      
+        <div><b>Nome: </b>{{cliente.nome}}</div>
+        <div><b>Rendimento Mensal: </b>{{cliente.rendimentoMensal | currency: 'R$'}}</div>
+        <div><b>Risco: </b>{{cliente.risco}}</div>          
+    </div>
+</div>
+
+<form (ngSubmit)="calcularJuros()"  #frm="ngForm">
+    <div class="card-body"> 
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputvlrEmprestimo">Valor do Empréstimo</label>
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-rend">R$</span>
+                </div>
+                <input currencyMask [options]="{ prefix: ' ', thousands: '.', decimal: ',' }"
+                    [(ngModel)]="emprestimo.vlrEmprestimo"
+                    name="vlrEmprestimo" class="form-control" id="inputvlrEmprestimo" 
+                    aria-describeby="addon-rend" 
+                    required>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputDuracao">Duração em meses</label>
+                <input type="text" [(ngModel)]="emprestimo.duracao" name="duracao" 
+                class="form-control" id="inputDuracao" placeholder="Duração"
+                required>
+            </div>
+        </div>
+        <div class="btn-group mx-auto" role="toolbar" aria-label="Button group">
+            <button [disabled]="frm.invalid" type="submit" class="btn btn-primary mr-2" >Calcular Juros</button>
+            <button routerLink="" routerLinkActive="active" type="button" class="btn btn-light mr-2">Cancelar</button>
+        </div>
+    </div>    
+  </form>
+
+<div class="row"></div>
+  <div class="card" *ngIf="taxaJuros">
+    <div class="card-header">Taxa de Juros</div>
+    <div class="card-body">
+      <h5 class="card-title">{{taxaJuros}}%</h5>
+      <h5 class="card-text">{{emprestimo.duracao}} Parcelas de <strong>{{totalParcelas | currency:'R$'}}</strong></h5>
+      <h5 class="card-text">Valor total financiado de <strong>{{totalFinanciado | currency:'R$'}}</strong></h5>
+    </div>
+  </div>
+

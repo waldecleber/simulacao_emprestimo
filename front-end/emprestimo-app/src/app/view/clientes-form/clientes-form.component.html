@@ -1,0 +1,102 @@
+<h3>Dados do Cliente</h3>
+<hr>
+<form (ngSubmit)="salvarCliente()"  #frm="ngForm">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputNome">Nome</label>
+        <input type="text" [(ngModel)]="cliente.nome" name="nome"
+            class="form-control" id="inputNome" placeholder="Nome"
+            required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEndereco">Endereço</label>
+        <input type="text" [(ngModel)]="cliente.endereco" name="endereco" 
+          class="form-control" id="inputEndereco" placeholder="Endereço"
+          required>     
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputrendimentoMensal">Rendimento Mensal</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-rend">R$</span>
+          </div>
+          <input currencyMask [options]="{ prefix: ' ', thousands: '.', decimal: ',' }" 
+            [(ngModel)]="cliente.rendimentoMensal" 
+            (blur)="calcularRisco()"
+            name="rendimentoMensal" class="form-control" id="inputrendimentoMensal" 
+            aria-describeby="addon-rend" 
+            required>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputRisco">Risco</label>
+        <input type="text" disabled [(ngModel)]="cliente.risco" name="risco" 
+          class="form-control" id="inputRisco" placeholder="Risco"
+          required>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="inputTipo">Tipo de Cliente</label>
+        <select id="inputTipo" [(ngModel)]="cliente.tipo" (change)="limparCamposTipoCliente()" name="tipo" class="form-control" required>
+          <option selected value="">Selecione...</option>
+          <option value="comum">Comum</option>
+          <option value="especial">Especial</option>
+          <option value="potencial">Potencial</option>
+        </select>
+      </div>
+    </div>
+
+   
+
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <div class="card" *ngIf="cliente.tipo === 'comum'">
+          <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" [(ngModel)]="cliente.empregado" name="empregado">
+                <label class="form-check-label" for="gridCheck">
+                  Está empregado.
+                </label>
+              </div>
+          </div>
+        </div>
+
+        <div  *ngIf="cliente.tipo === 'especial'">
+            <label for="inputPatrimonio">Valor total do patrimônio</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-pat">R$</span>
+              </div>
+              <input currencyMask [options]="{ prefix: ' ', thousands: '.', decimal: ',' }"
+                [(ngModel)]="cliente.vlrTotalPatrimonio" 
+                name="vlrTotalPatrimonio" class="form-control" id="inputPatrimonio" 
+                aria-describeby="addon-pat" >
+            </div>
+        </div>
+
+        <div *ngIf="cliente.tipo === 'potencial'">
+            <label for="inputDividas">Dívidas atuais</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">R$</span>
+              </div>
+              <input currencyMask [options]="{ prefix: ' ', thousands: '.', decimal: ',' }"
+                [(ngModel)]="cliente.vlrDividasAtuais" 
+                name="vlrDividasAtuais" class="form-control" id="inputDividas" aria-describeby="basic-addon3" >
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    
+    <div class="btn-group mx-auto" role="toolbar" aria-label="Button group">
+        <button [disabled]="frm.invalid" type="submit" class="btn btn-primary mr-2" >Salvar</button>
+        <button routerLink="" routerLinkActive="active" type="button" class="btn btn-light mr-2">Cancelar</button>
+    </div>
+    
+  </form>
+

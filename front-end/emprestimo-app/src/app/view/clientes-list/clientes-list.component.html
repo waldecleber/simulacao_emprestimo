@@ -1,0 +1,86 @@
+<h3>Clientes</h3>
+
+<nav class="navbar navbar-light bg-light" *ngIf="clientes.length > 0 || naoEncontrado" >
+  <form class="form-inline" (ngSubmit)="listar()" >
+    <input class="form-control mr-sm-2" type="search" [(ngModel)]="filtro" name="filtro" placeholder="Search"  aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+  </form>
+</nav>
+
+
+
+<table class="table" *ngIf="clientes.length > 0 || naoEncontrado" >
+    <thead class="thead-dark" >
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Rendimento mensal (R$)</th>
+            <th scope="col">Risco</th>
+            <th scope="col">Tipo de cliente</th>
+            <th scope="col">Endereço</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="!naoEncontrado">
+        <tr *ngFor="let item of clientes ; let i = index" >
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.nome}}</td>
+            <td>{{item.rendimentoMensal | currency:'BRL'}}</td>
+            <td>{{item.risco}}</td>
+            <td>{{item.tipo}}</td>
+            <td>{{item.endereco}}</td>
+            <td> 
+                <div class="btn-group mx-auto" role="toolbar" aria-label="Button group">
+                            <button type="button" class="btn btn-success mr-2" [routerLink]="['/cliente-form', item.id]">Editar</button>
+                            
+                            <button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#exampleModal" (click)="onSelectCliente(item)">Excluir</button>
+                            
+                            <button type="button" class="btn btn-dark mr-2" [routerLink]="['/emprestimo-form', item.id]" data-toggle="modal" data-target="#exampleModal" (click)="onSelectCliente(item)">Simular Empréstimo</button>
+
+                </div>
+            </td>
+        </tr>
+       
+    </tbody>
+
+    <div *ngIf="naoEncontrado">
+      <strong>Nenhum registro encontrado.</strong>
+    </div>
+</table>
+
+<button routerLink="/cliente-form" routerLinkActive="active"  type="button" class="btn btn-primary">Novo Cliente</button>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Deletar Registro</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Deseja realmente deletar o cliente <b>{{clienteSelecionado.nome}}</b>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <button   #closeModal data-dismiss="modal" type="button" class="btn btn-primary" (click)="deletarCliente()">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
