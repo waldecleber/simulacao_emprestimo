@@ -1,0 +1,12 @@
+databaseChangeLog:    
+  - changeSet:
+      id: create-table-cliente-sql
+      context: dev
+      author: waldecleber
+      changes:
+        - sqlFile:
+              encoding: utf8
+              path: sql/create_table_cliente.sql
+              relativeToChangelogFile: true
+              splitStatements: true
+              stripComments: true       
