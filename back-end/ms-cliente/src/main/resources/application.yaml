@@ -1,0 +1,17 @@
+server:
+  port: 7001
+  
+spring:
+  datasource:
+    url: '@URL@'
+    username: '@dataSource.project.user@'
+    password: '@dataSource.project.password@'
+    driver-class-name: '@dataSource.project.driverClass@'
+    
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
