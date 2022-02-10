@@ -21,7 +21,7 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
     	<maven.compiler.target>11</maven.compiler.target>
-		<hibernate-core.version>5.4.10.Final</hibernate-core.version>
+		<hibernate-core.version>5.4.24.Final</hibernate-core.version>
 		<lombok.version>1.18.8</lombok.version>
 		<lombok-maven-plugin.version>1.18.6.0</lombok-maven-plugin.version>
         <dataSource.project.driverClass>com.mysql.cj.jdbc.Driver</dataSource.project.driverClass>
